@@ -1,0 +1,9 @@
+aside.el-aside {
+  background-color: #3481c5!important
+}
+.el-card__body{
+  padding: 0px!important;
+}
+.el-card{
+  border: none;
+}
