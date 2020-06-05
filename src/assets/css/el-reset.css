@@ -7,3 +7,6 @@ aside.el-aside {
 .el-card{
   border: none;
 }
+tr{
+  line-height: 0;
+}

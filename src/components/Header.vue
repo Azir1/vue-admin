@@ -14,9 +14,9 @@
       <div class="grid-content bg-purple info">
         <span>
           <span>欢迎您</span>
-          <el-link type="success" class="user">哈哈哈</el-link>
+          <el-link type="success" class="user">{{userInfo.username}}</el-link>
         </span>
-        <el-link type="danger" class="log">退出</el-link>
+        <el-link type="danger" class="log" @click="logout()">退出</el-link>
       </div>
     </el-col>
   </el-row>
@@ -24,11 +24,27 @@
 
 <script>
 // 直接将vuex中的方法映射过来
-
-import { mapMutations } from "vuex";
+import { mapMutations, mapState } from "vuex";
 export default {
+  mounted() {
+    let userInfo = localStorage.getItem("userInfo");
+    userInfo = JSON.parse(userInfo);
+    // console.log(userInfo);
+    this.userInfo = { ...userInfo };
+  },
   methods: {
-    ...mapMutations(["changeMenuStatus"])
+    ...mapMutations(["changeMenuStatus"]),
+    logout() {
+      localStorage.removeItem("token");
+      localStorage.removeItem("userInfo");
+      this.$router.push("/login");
+    }
+  },
+  computed: {},
+  data() {
+    return {
+      userInfo: {}
+    };
   }
 };
 </script>

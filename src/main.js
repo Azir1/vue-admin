@@ -12,6 +12,7 @@ import './assets/css/el-reset.css'
 // import axios from 'axios'
 // Vue.prototype.axios = axios
 
+
 Vue.config.productionTip = false
 Vue.use(ElementUI);
 new Vue({
@@ -19,3 +20,4 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+

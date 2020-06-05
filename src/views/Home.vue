@@ -1,75 +1,54 @@
 <template>
-  <div class="home">
-    <el-container>
-      <el-aside width="200">
-        <!-- 侧边栏-->
-        <Aside/>
-      </el-aside>
-      <el-container>
-      <!-- 顶部导航栏-->
-        <el-header>
-        <Header/>
-        </el-header>
-        <el-main>Main</el-main>
-      </el-container>
-    </el-container>
+  <div>
+    <h2>欢迎登陆后台管理系统！</h2>
+
+    <el-table :data="tableData" style="width: 100%">
+      <el-table-column prop="username" label="登入账户" width="180"></el-table-column>
+      <el-table-column prop="ip" label="ip" width="180"></el-table-column>
+      <el-table-column prop="nowLogin" label="登入时间"></el-table-column>
+      <el-table-column prop="lastLogin" label="上次登入时间"></el-table-column>
+    </el-table>
   </div>
 </template>
 
 <script>
-import Aside from '@/components/Home/Aside.vue'
-import Header from '@/components/Home/Header.vue'
+import { getloginlog } from "@/api";
 export default {
-  name: "Home",
-  components: {
-    Aside,
-    Header
+  data() {
+    return {
+      tableData: [
+        {
+          username: "",
+          ip: "",
+          nowLogin: "",
+          lastLogin: ""
+        }
+      ]
+    };
+  },
+  mounted() {
+    getloginlog().then(res => {
+      console.log(res)
+      if (res.data.state) {
+        //成功获取数据
+        let newArr = res.data.data.map(v => {
+          return {
+            username: v.username,
+            ip: v.nowLogin.ip,
+            nowLogin: v.nowLogin.loginTime,
+            lastLogin: v.lastLogin.loginTime
+          };
+        });
+        this.tableData = [...newArr];
+      }
+    });
   }
 };
-</script>
+</script> 
 
 <style scoped>
-.home{
-  height: 100%;
-}
-section.el-container{
-  height: 100%;
-}
-.el-header,
-.el-footer {
-  background-color: #3481c5;
-  color: #333;
-  text-align: center;
-  line-height: 60px;
-  border-left: 1px solid #fff;
-
-}
-
-.el-aside {
-  background-color: #d3dce6;
-  color: #333;
-  text-align: center;
-  line-height: 200px;
-}
-
-.el-main {
-  background-color: #e9eef3;
-  color: #333;
-  text-align: center;
-  line-height: 160px;
-}
-
-body > .el-container {
-  margin-bottom: 40px;
-
-}
-
-.el-container:nth-child(5) .el-aside,
-.el-container:nth-child(6) .el-aside {
-  line-height: 260px;
-}
-
-.el-container:nth-child(7) .el-aside {
-  line-height: 320px;
+h2 {
+  line-height: 20px;
+  margin-bottom: 10px;
 }
 </style>
