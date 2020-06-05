@@ -101,20 +101,28 @@ export default {
             password: this.ruleForm.password
           };
           login(data).then(ok => {
-            // console.log(ok.data);
-            if (ok.data.state) {
-              this.$message({
-                message: ok.data.msg,
-                type: "success"
-              });
-              // 把token存到localstorage
-              localStorage.setItem("token", ok.data.token);
-              // 把用户信息存到localstorage
-              localStorage.setItem('userInfo',JSON.stringify(ok.data.userInfo))
-              this.$router.push("/");
-            } else {
-              //登陆出错
-              this.$message.error(ok.data.msg);
+            // console.log(ok);
+            if (ok) {
+              if (ok.data.state) {
+                this.$message({
+                  message: ok.data.msg,
+                  type: "success"
+                });
+                // 把token存到localstorage
+                localStorage.setItem("token", ok.data.token);
+                // 把用户信息存到localstorage
+                localStorage.setItem(
+                  "userInfo",
+                  JSON.stringify(ok.data.userInfo)
+                );
+                this.$router.push("/");
+              } else {
+                //登陆出错
+                this.$message.error(ok.data.msg);
+              }
+            }else{
+               //登陆出错
+                this.$message.error('用户名或密码错误')
             }
           });
           // 直接提交

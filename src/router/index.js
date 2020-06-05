@@ -7,7 +7,7 @@ import Manage from '../views/manage/Manage.vue'
 import Check from '../views/Check.vue'
 import Charts from '../views/Charts.vue'
 import User from '../views/User.vue'
-import Student from '../views/manage/ManageStu.vue'
+import Student from '../views/manage/ManageStu'
 import Teacher from '../views/manage/ManageTec.vue'
 Vue.use(VueRouter)
 const routes = [
