@@ -10,3 +10,12 @@ aside.el-aside {
 tr{
   line-height: 0;
 }
+.el-select-dropdown.el-popper.is-multiple{
+  margin-top: -8px;
+}
+.el-dialog__header{
+  line-height: 20px;
+}
+.el-dialog__footer{
+  line-height: 20px;
+}

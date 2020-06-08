@@ -23,12 +23,12 @@ axios.interceptors.response.use(function (response) {
     return response
   } else {
     // 否则跳转登录，并提示没有权限
-    // Message.error('token失效，请重新登录');
-    // localStorage.removeItem('token')
-    // localStorage.removeItem('userInfo')
-    // router.replace({
-    //   path: '/login'
-    // })
+    Message.error('token失效，请重新登录');
+    localStorage.removeItem('token')
+    localStorage.removeItem('userInfo')
+    router.replace({
+      path: '/login'
+    })
   }
   // 如果返回的数据是登录失效，则重新登录
 })
@@ -43,12 +43,35 @@ export const login = (data) => axios({
   data,
   timeout: 5000//请求时长为5秒钟,超过之后,进入到reject状态
 })
-
+// 获取登录日志
 export const getloginlog = () => axios({
   method: 'get',
   url: '/getloginlog',
   // timeout: 5000,
 })
+// 获取学员列表
+export const getStudentList = () => axios({
+  method: 'get',
+  url: '/students/getstulist'
+})
+// 添加学员信息
+export const addStudent = (data) => axios({
+  method: 'post',
+  url: '/students/addstu',
+  data
+})
 
+// 编辑学员信息
+export const upDateStudent = (data) => axios({
+  method: 'post',
+  url: '/students/updatestu',
+  data
+})
+
+// 获取权限列表
+export const getMenuList = () => axios({
+  method: 'get',
+  url: '/permission/getMenuList'
+})
 
 

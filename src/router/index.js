@@ -1,66 +1,67 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Index from '../views/Index.vue'
+import Layout from '../views/Layout.vue'
 import Login from '../views/Login.vue'
-import Home from '../views/Home.vue'
-import Manage from '../views/manage/Manage.vue'
-import Check from '../views/Check.vue'
-import Charts from '../views/Charts.vue'
-import User from '../views/User.vue'
-import Student from '../views/manage/ManageStu'
-import Teacher from '../views/manage/ManageTec.vue'
+// import Home from '../views/Home.vue'
+// import Manage from '../views/manage/Manage.vue'
+// import Check from '../views/Check.vue'
+// import Charts from '../views/Charts.vue'
+// import User from '../views/User.vue'
+// import Student from '../views/manage/ManageStu'
+// import Teacher from '../views/manage/ManageTec.vue'
 Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'index',
-    component: Index,
+    // name: 'Index',
+    component: Layout,
     // 子路由
     // 重定向
-    children: [
-      {
-        path: '/',
-        redirect: '/home',
-        component: Home
-      },
-      {
-        path: '/home',
-        name: 'home',
-        component: Home
-      },
-      {
-        path: '/manage',
-        name: 'manage',
-        component: Manage,
-        children: [
-          {
-            path: '/manage/student',
-            name: 'student',
-            component: Student
-          },
-          {
-            path: '/manage/teacher',
-            name: 'Teacher',
-            component: Teacher
-          },
-        ]
-      },
-      {
-        path: '/check',
-        name: 'check',
-        component: Check
-      },
-      {
-        path: '/charts',
-        name: 'charts',
-        component: Charts
-      },
-      {
-        path: '/user',
-        name: 'user',
-        component: User
-      },
-    ]
+    // children: [
+    //   {
+    //     path: '/home',
+    //     name: 'home',
+    //     component: () => import('../views/Home.vue')
+    //   },
+    //   {
+    //     path: '/manage',
+    //     name: 'manage',
+    //     component: () => import('../views/manage/Manage.vue'),
+    //     children: [
+    //       {
+    //         path: '/manage/student',
+    //         name: 'student',
+    //         component: () => import('../views/manage/ManageStu')
+    //       },
+    //       {
+    //         path: '/manage/teacher',
+    //         name: 'Teacher',
+    //         component: () => import('../views/manage/ManageTec.vue')
+    //       },
+    //     ]
+    //   },
+    //   {
+    //     path: '/check',
+    //     name: 'check',
+    //     component: () => import('../views/Check.vue')
+    //   },
+    //   {
+    //     path: '/charts',
+    //     name: 'charts',
+    //     component: () => import('../views/Charts.vue')
+    //   },
+    //   {
+    //     path: '/user',
+    //     name: 'user',
+    //     component: () => import('../views/User.vue')
+    //   },
+    // ]
+  },
+
+  {
+    path: '/',
+    redirect: '/home',
+    component: () => import('../views/Home.vue')
   },
   {
     path: '/login',
@@ -68,12 +69,13 @@ const routes = [
     component: Login
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: "/404",
+    name: "notFound",
+    component: () => import('@/components/notFound')
+  },
+  {
+    path: "*", // 此处需特别注意置于最底部
+    redirect: "/404" //无匹配到的路径自动重定向到404页面
   }
 ]
 
@@ -83,23 +85,5 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
-//全局守卫写在实例化路由后
-//router对象调用  
-//.beforeEach((进入到哪一个路由,从哪一个路由离开,对应的函数)=>{}) 
-router.beforeEach((to, form, next) => {
-  let token = localStorage.getItem('token')
-  if (token) {
-    if (to.path == "/login") {
-      next("/home")
-    } else {
-      next()
-    }
-  } else {
-    if (to.path == '/login' || to.path == '/register') {
-      next();//跳转登录
-    } else {
-      next("/login")
-    }
-  }
-})
+
 export default router

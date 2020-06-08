@@ -28,18 +28,20 @@ export default {
   },
   mounted() {
     getloginlog().then(res => {
-      console.log(res)
-      if (res.data.state) {
-        //成功获取数据
-        let newArr = res.data.data.map(v => {
-          return {
-            username: v.username,
-            ip: v.nowLogin.ip,
-            nowLogin: v.nowLogin.loginTime,
-            lastLogin: v.lastLogin.loginTime
-          };
-        });
-        this.tableData = [...newArr];
+      console.log(res);
+      if (res) {
+        if (res.data.state) {
+          //成功获取数据
+          let newArr = res.data.data.map(v => {
+            return {
+              username: v.username,
+              ip: v.nowLogin.ip,
+              nowLogin: v.nowLogin.loginTime,
+              lastLogin: v.lastLogin.loginTime
+            };
+          });
+          this.tableData = [...newArr];
+        }
       }
     });
   }
