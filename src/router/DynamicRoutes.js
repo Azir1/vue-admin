@@ -23,7 +23,7 @@ export const DynamicRoutes = [
     component: () => import('../views/manage/Manage.vue'),
     children: [
       {
-        path: '/manage/student',
+        path: 'student',
         name: 'student',
         component: () => import('../views/manage/ManageStu'),
         meta: {
