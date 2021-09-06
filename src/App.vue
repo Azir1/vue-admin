@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-  <!--这边是一级路由，/和/login-->
+    <!--这边是一级路由，/和/login-->
     <router-view></router-view>
   </div>
 </template>
